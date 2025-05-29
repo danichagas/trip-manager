@@ -11,6 +11,7 @@
   "description": "Gerenciador de viagens",
   "devDependencies": {
     "@types/node": "^22.15.24",
+    "prisma": "^6.8.2",
     "tsc": "^2.0.4",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
