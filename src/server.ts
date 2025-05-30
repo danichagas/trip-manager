@@ -1,12 +1,11 @@
 import fastify from 'fastify'
-import { PrismaClient } from './generated/prisma'
 import { createtrip } from './routes/create-trip'
-
-export const prisma = new PrismaClient({
-  log: ['query']
-})
+import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
 
 const app = fastify()
+
+app.setValidatorCompiler(validatorCompiler)
+app.setSerializerCompiler(serializerCompiler)
 
 app.register(createtrip)
 
