@@ -32,11 +32,11 @@ export async function confirmTrip(app: FastifyInstance) {
         }
       })
 
-      if (!trip) {
+      if(!trip) {
         throw new Error('Viagem não encontrada')
       }
 
-      if (trip.is_confrimed) {
+      if(trip.is_confrimed) {
         return reply.redirect(`http://localhost:3000/trips/${tripId}`)
       }
 
@@ -52,7 +52,7 @@ export async function confirmTrip(app: FastifyInstance) {
 
       await Promise.all(
         trip.participant.map(async (participant) => {
-          const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm/${participant.id}`
+          const confirmationLink = `http://localhost:3333/participants/${participant.id}/confirm`
 
           const message = await mail.sendMail({
             from: {
