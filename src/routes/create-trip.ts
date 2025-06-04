@@ -11,7 +11,7 @@ import { getMailClient } from '../lib/mail'
 dayjs.locale('pt-br')
 dayjs.extend(localizedFormat)
 
-export async function createtrip(app: FastifyInstance) {
+export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/trips', {
     schema: {
       body: z.object({
