@@ -5,6 +5,7 @@ import { prisma } from '../prisma'
 import dayjs from 'dayjs'
 import { getMailClient } from '../lib/mail'
 import nodemailer from 'nodemailer'
+import { ClientError } from '../errors/client-error'
 
 export async function confirmTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -33,7 +34,7 @@ export async function confirmTrip(app: FastifyInstance) {
       })
 
       if(!trip) {
-        throw new Error('Viagem não encontrada')
+        throw new ClientError('Viagem não encontrada')
       }
 
       if(trip.is_confrimed) {

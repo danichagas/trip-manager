@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer'
 import { z } from 'zod'
 import { prisma } from "../prisma"
 import { getMailClient } from '../lib/mail'
+import { ClientError } from '../errors/client-error'
 
 dayjs.locale('pt-br')
 dayjs.extend(localizedFormat)
@@ -32,15 +33,15 @@ export async function updateTrip(app: FastifyInstance) {
       })
       
       if(!trip) {
-        throw new Error('Viagem não encontrada!')
+        throw new ClientError('Viagem não encontrada!')
       }
 
       if(dayjs(starts_at).isBefore(new Date())) {
-        throw new Error('A data de início da viagem está incorreta!')
+        throw new ClientError('A data de início da viagem está incorreta!')
       }
 
       if(dayjs(ends_at).isBefore(starts_at)) {
-        throw new Error('A data de termino da viagem está incorreta!')
+        throw new ClientError('A data de termino da viagem está incorreta!')
       }
 
       return { tripId: trip.id }

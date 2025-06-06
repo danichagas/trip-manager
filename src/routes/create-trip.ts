@@ -7,6 +7,7 @@ import nodemailer from 'nodemailer'
 import { z } from 'zod'
 import { prisma } from "../prisma"
 import { getMailClient } from '../lib/mail'
+import { ClientError } from '../errors/client-error'
 
 dayjs.locale('pt-br')
 dayjs.extend(localizedFormat)
@@ -27,11 +28,11 @@ export async function createTrip(app: FastifyInstance) {
     const { destination, starts_at, ends_at, owner_name, owner_email, emails_to_invite } = request.body
 
     if(dayjs(starts_at).isBefore(new Date())) {
-      throw new Error('A data de início da viagem está incorreta!')
+      throw new ClientError('A data de início da viagem está incorreta!')
     }
 
     if(dayjs(ends_at).isBefore(starts_at)) {
-      throw new Error('A data de termino da viagem está incorreta!')
+      throw new ClientError('A data de termino da viagem está incorreta!')
     }
 
     const trip = await prisma.trip.create({
