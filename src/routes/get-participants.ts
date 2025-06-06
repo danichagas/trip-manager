@@ -31,6 +31,6 @@ export async function getParticipants(app: FastifyInstance) {
       throw new Error('Viagem não encontrada!')
     }
 
-    return {participants: trip.participant }
+    return { participants: trip.participant }
   })
 }

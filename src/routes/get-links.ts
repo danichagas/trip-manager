@@ -24,6 +24,6 @@ export async function getLinks(app: FastifyInstance) {
       throw new Error('Viagem não encontrada!')
     }
 
-    return {links: trip.links }
+    return { links: trip.links }
   })
 }
